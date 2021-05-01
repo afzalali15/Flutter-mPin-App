@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MPinAnimationController {
-  void Function() animate;
+  void Function(String) animate;
 }
 
 class MPinAnimation extends StatefulWidget {
@@ -17,13 +17,17 @@ class _MPinAnimationState extends State<MPinAnimation>
   AnimationController _controller;
   Animation<double> _sizeAnimation;
   Animation<double> _opacityAnimation;
+  String pin = '';
 
-  void animate() {
+  void animate(String input) {
     _controller.forward();
+    setState(() {
+      pin = input;
+    });
   }
 
   _MPinAnimationState(controller) {
-    controller.animate = animate;
+    controller?.animate = animate;
   }
 
   @override
@@ -46,23 +50,28 @@ class _MPinAnimationState extends State<MPinAnimation>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _sizeAnimation.value,
-      width: _sizeAnimation.value,
+      height: 64,
+      width: 64,
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(_sizeAnimation.value / 2),
-        color: Colors.white,
-      ),
-      child: Opacity(
-        opacity: _opacityAnimation.value,
-        child: Transform.scale(
-          scale: _sizeAnimation.value / 48,
-          child: Text(
-            '1',
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                .copyWith(fontWeight: FontWeight.bold),
+      child: Container(
+        height: _sizeAnimation.value,
+        width: _sizeAnimation.value,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(_sizeAnimation.value / 2),
+          color: pin == '' ? Colors.white54 : Colors.white,
+        ),
+        child: Opacity(
+          opacity: _opacityAnimation.value,
+          child: Transform.scale(
+            scale: _sizeAnimation.value / 48,
+            child: Text(
+              pin,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),

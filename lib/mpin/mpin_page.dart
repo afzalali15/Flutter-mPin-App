@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mpin_animation.dart';
+import 'package:mpin_app/mpin/mpin_widget.dart';
 
 class MPinPage extends StatefulWidget {
   @override
@@ -7,7 +7,7 @@ class MPinPage extends StatefulWidget {
 }
 
 class _MPinPageState extends State<MPinPage> {
-  MPinAnimationController animationController = MPinAnimationController();
+  MPinController mPinController = MPinController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,17 +24,42 @@ class _MPinPageState extends State<MPinPage> {
           SafeArea(
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MPinAnimation(
-                    controller: animationController,
+                  // MPinAnimation(
+                  //   controller: animationController,
+                  // ),
+                  MPinWidget(
+                    pinLegth: 5,
+                    controller: mPinController,
                   ),
                   MaterialButton(
                     onPressed: () {
-                      animationController.animate();
+                      mPinController.addInput('1');
                     },
                     color: Colors.white,
                     child: Text(
-                      'Animate',
+                      '1',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      mPinController.addInput('2');
+                    },
+                    color: Colors.white,
+                    child: Text(
+                      '2',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      mPinController.delete();
+                    },
+                    color: Colors.white,
+                    child: Text(
+                      '<',
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
