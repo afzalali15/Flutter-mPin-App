@@ -26,48 +26,74 @@ class _MPinPageState extends State<MPinPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // MPinAnimation(
-                  //   controller: animationController,
-                  // ),
                   MPinWidget(
                     pinLegth: 5,
                     controller: mPinController,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      mPinController.addInput('1');
+                    onCompleted: (mPin) {
+                      print('You entered -> $mPin');
+                      if (mPin == '12345') {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Success'),
+                                content: Text('Go to next page'),
+                              );
+                            });
+                      } else {
+                        //animate wrong input
+                        mPinController.notifyWrongInput();
+                      }
                     },
-                    color: Colors.white,
-                    child: Text(
-                      '1',
-                      style: TextStyle(fontSize: 24),
-                    ),
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      mPinController.addInput('2');
-                    },
-                    color: Colors.white,
-                    child: Text(
-                      '2',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                  SizedBox(height: 32),
+                  GridView.count(
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    childAspectRatio: 1.6,
+                    children: List.generate(
+                        9, (index) => buildMaterialButton(index + 1)),
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      mPinController.delete();
-                    },
-                    color: Colors.white,
-                    child: Text(
-                      '<',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                  GridView.count(
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    childAspectRatio: 1.6,
+                    children: [
+                      MaterialButton(
+                        onPressed: () {
+                          // mPinController.addInput('$input');
+                        },
+                        textColor: Colors.white,
+                        child: Icon(Icons.fingerprint),
+                      ),
+                      buildMaterialButton(0),
+                      MaterialButton(
+                        onPressed: () {
+                          mPinController.delete();
+                        },
+                        textColor: Colors.white,
+                        child: Icon(Icons.backspace_rounded),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  MaterialButton buildMaterialButton(int input) {
+    return MaterialButton(
+      onPressed: () {
+        mPinController.addInput('$input');
+      },
+      textColor: Colors.white,
+      child: Text(
+        '$input',
+        style: TextStyle(fontSize: 24),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MPinAnimationController {
   void Function(String) animate;
+  void Function() clear;
 }
 
 class MPinAnimation extends StatefulWidget {
@@ -26,8 +27,15 @@ class _MPinAnimationState extends State<MPinAnimation>
     });
   }
 
+  void clear() {
+    setState(() {
+      pin = '';
+    });
+  }
+
   _MPinAnimationState(controller) {
     controller?.animate = animate;
+    controller?.clear = clear;
   }
 
   @override
