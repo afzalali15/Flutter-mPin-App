@@ -13,8 +13,6 @@ Flutter mPin Animation Tutorial || Part-3 | mPin Series<br>
 https://youtu.be/Tt5UPow7kMY
 
 
-A new Flutter project.
-
 If you like my work, support me to create more! 😎👍<br>
 <a href="https://www.buymeacoffee.com/afzalali15" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50px" alt="Buy Me A Coffee"></a>
 
